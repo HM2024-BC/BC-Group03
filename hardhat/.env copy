@@ -1,0 +1,11 @@
+# This is the URL of the Ethereum RPC provider
+RPC_URL="sepolia: {
+      url: "https://sepolia.infura.io/v3/<key>",
+      accounts: [privateKey1, privateKey2, ...]
+    }kdYhAJCOqw4fnLijCfCSaeW8syhibJ"
+# This is a private key for signing transactions (private key of the deployer account)
+PRIVATE_KEY="b4aa1ddf32beafca26ea3822529235e16caf4db679e960d421648d1f71c73cd4"
+# This is an API key for accessing a specific service like etherscan API to use hardhat verify to verify your contracts
+API_KEY="kdYhAJCOqw4fnLijCfCSaeW8syhibJ"
+# This is the chain ID for the Ethereum network
+CHAIN_ID=1311

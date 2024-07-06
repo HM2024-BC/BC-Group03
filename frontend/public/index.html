@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting dApp 2023</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Link to external ethers.js library -->
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+</head>
+
+<body>
+    
+    <div id="votingStation">
+
+        <img src="s2bc-logo.svg" alt="S2BC Logo" id="logo" style="cursor: pointer;">
+
+        <h1>Voting dApp 2023</h1>
+
+        <div id="connectWallet">
+            <button id="connectWalletbutton">Connect Wallet</button>
+            <p id="connectWalletMessage"><span id="connectWalletMessageSpan"></span></p>
+        </div>
+
+        <div id="buttonPanel">
+            <hr class="custom-line">
+            <button id="votePanelButton">Vote Panel</button>
+            <button id="adminPanelButton">Admin Panel</button>
+        </div>
+
+        <div id="votePanel" class="panel">
+
+            <!-- Main board for displaying election information -->
+            <div id="mainBoard">
+        
+                <!-- Section for displaying election title, election ID and timer -->
+                <div id="topBoard">
+                    <p id="title">Election Title: <span id="electionTitleSpan" onclick="fetchElectionTitle()"></span></p>
+                    <p>Election ID: <span id="electionID"></span></p>
+                    <p id="timerMessage">Timer: <span id="time" onclick="showTimer()">[refresh]</span></p>
+                </div>
+        
+                <!-- Table for displaying candidates -->
+                <table id="candidateBoard">
+                    <tr>
+                        <th>ID</th>
+                        <th>Candidates</th>
+                        <th>Votes count</th>
+                        <th>Vote Button</th>
+                    </tr>
+                    <!-- Rows for each candidate will be dynamically added here using JavaScript -->
+                </table>
+        
+            </div>
+        
+            <!-- Button to refresh the voting board -->
+            <div id="showCandidateListContainer">
+                <button id="showCandidateList" onclick="showTimer()">Refresh voting board</button>
+            </div>
+        
+            <hr class="custom-line">
+        
+            <!-- Section for casting a vote -->
+            <div id="voteForm">
+                <h3>Please enter the candidate's ID for your vote:</h3>
+                <label for="">
+                    <input type="number" id="vote" />
+                    <button id="sendVote">Send Vote</button>
+                </label>
+            </div>
+        
+        </div>
+
+        <div id="admin" class="panel">
+
+            <div id="startElection">
+                <h3 id="startElectionMessage">Start an Election:</h3>
+                <input type="text" id="electionTitleInput" placeholder="Election Title" />
+                <input type="text" id="addCandidateInput" placeholder="Candidate 1" />
+                <input type="text" id="addCandidateInput2" placeholder="Candidate 2" />
+                <input type="text" id="addCandidateInput3" placeholder="Candidate 3" />
+                <input type="text" id="addCandidateInput4" placeholder="+ candidates separated by (,) " />
+                <p>How long the election will last?:</p>
+                <input type="number" id="specifyDuration" placeholder="Duration in minutes" />
+                <button id="startElectionButton">Start Election</button>
+            </div>
+    
+            <hr class="custom-line">
+    
+            <div id="addVoterArray">
+                <h3>Register voters addresses:</h3>
+                <input type="text" id="addVoterInputArray" placeholder="+ addresses separated by(,)" />
+                <button id="addVoterButtonArray">Register Voters</button>
+            </div>
+    
+            <hr class="custom-line">
+    
+            <div id="changeElectionDuration">
+                <h3>Change election duration:</h3>
+                <input type="number" id="changeElectionDurationInput" />
+                <button id="changeElectionDurationButton">Change duration</button>
+            </div>
+    
+            <hr class="custom-line">
+    
+            <div id="addCandidate">
+                <!-- Section for adding a candidate -->
+                <h3>Add a candidate to election:</h3>
+                <input type="text" id="addCandidateInputBonus" />
+                <button id="addCandidateButton">Add Candidate</button>
+            </div>
+    
+            <hr class="custom-line">
+    
+            <div id="endElection">
+                <!-- Section for finalizing the election -->
+                <h3>Finalise the election:</h3>
+                <button id="endElectionButton">End Election</button>
+            </div>
+    
+            <hr class="custom-line">
+    
+            <div id="saveResultsNFT">
+                <!-- Section for minting an NFT certificate -->
+                <h3>Generate an NFT certificate representing the election results and distribute it to the addresses of
+                    all voters:</h3>
+                <button id="generateAndUploadMetadataButton">Mint NFT</button>
+            </div>
+    
+            <hr class="custom-line">
+    
+            <div id="resetElection">
+                <h3>Reinitialise the election:</h3>
+                <button id="resetElectionButton">Reinitialise</button>
+            </div>
+    
+        </div>
+
+    </div>
+
+    <!-- Reference to your script.js file -->
+    <script src="script.js"></script>    
+</body>
+
+</html>

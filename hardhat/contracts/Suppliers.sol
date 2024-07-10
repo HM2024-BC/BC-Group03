@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.22;
+pragma solidity ^0.8.26;
 
-contract Suppliers  {
+contract SustainableSuppliers  {
     struct Supplier {
         string name;
         uint sustainabilityScore;
@@ -13,18 +13,20 @@ contract Suppliers  {
     event SupplierAdded(uint indexed supplierId, string name, uint sustainabilityScore, string description);
     event SustainabilityScoreUpdated(uint indexed supplierId, uint newScore, string addedDescription);
 
+       /// @notice Emitted when a supplier is deleted due to a low sustainability score
+    /// @param id The unique identifier for the supplier
+    event SupplierDeleted(uint256 indexed id);
 
     /// @notice Initializes the smart contract with 5 dummy suppliers.
     constructor() {
-        _addSupplier("Supplier A", 85, "Supplier A is focused on reducing carbon emissions.");
-        _addSupplier("Supplier B", 70, "Supplier B uses recycled materials.");
-        _addSupplier("Supplier C", 90, "Supplier C has a comprehensive CSR program.");
-        _addSupplier("Supplier D", 60, "Supplier D is working on reducing water usage.");
-        _addSupplier("Supplier E", 75, "Supplier E supports local communities.");
+        _addSupplier("Brunner AG", 85, "Brunner AG is focused on reducing carbon emissions./n");
+        _addSupplier("Haslan SE", 70, "Haslan SE uses recycled materials.");
+        _addSupplier("Pascal und Sohn GmbH", 90, "Pascal und Sohn GmbH has a comprehensive CSR program.");
+        _addSupplier("Umscheid GbR", 60, "Umscheid GbR is working on reducing water usage.");
+        _addSupplier("Lucas Inc.", 75, "Lucas Inc. supports local communities.");
     }
 
     /// @notice Adds a new supplier to the blockchain with their sustainability information.
-    /// @dev Only the contract owner can add new suppliers.
     /// @param _name The name of the supplier.
     /// @param _sustainabilityScore A score representing the supplier's sustainability practices.
     /// @param _description A brief description of the supplier's sustainability efforts.
@@ -52,17 +54,16 @@ contract Suppliers  {
     }
 
     /// @notice Lists all registered suppliers.
-    /// @return An array of supplier IDs.
-    function listSuppliers() public view returns (uint[] memory) {
-        uint[] memory ids = new uint[](suppliers.length);
+    /// @return An array of supplier.
+    function listSuppliers() public view returns (Supplier[] memory) {
+        Supplier[] memory ids = new Supplier[](suppliers.length);
         for (uint i = 0; i < suppliers.length; i++) {
-            ids[i] = i;
+            ids[i] = suppliers[i];
         }
         return ids;
     }
 
     /// @notice Updates the sustainability score of a specific supplier.
-    /// @dev Only the contract owner can update the sustainability score.
     /// @param _supplierId The unique ID of the supplier.
     /// @param _newScore The new sustainability score to be updated.
     function updateSustainabilityScore(uint _supplierId, uint _newScore, string memory _addedDescription) public {
@@ -70,4 +71,17 @@ contract Suppliers  {
         suppliers[_supplierId].description = _addedDescription;
         emit SustainabilityScoreUpdated(_supplierId, _newScore, _addedDescription);
     }
-}
+
+    /// @notice Deletes all suppliers with a lower score than 20.
+    function deleteLowScoringSuppliers() public  {
+        for (uint256 i = 0; i < suppliers.length; i++) {
+            if (suppliers[i].sustainabilityScore < 20) {
+                emit SupplierDeleted(i);
+                suppliers[i] = suppliers[suppliers.length-1];
+                suppliers.pop();
+        }
+                
+            }
+
+        }
+    }
